@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "AllDone!",
+  "description": "Close all your tabs in the current window after a set time",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "boom.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "alarms",
+    "https://ajax.googleapis.com/"
+  ]
+}
