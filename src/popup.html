@@ -7,15 +7,15 @@
         width: 300px;
       }
       input {
-        width: 20px;
+        width: 50px;
       }
     </style>
     <script src="popup.js"></script>
+    <script src="timebomb.js"></script>
+    <script src="moment.min.js"></script>
   </head>
   <body>
-    This window will close in
-    <input id="timeUntilClose" type="text" value="20"/>
-    minutes
+    Close all windows at <input id="timeToClose" type="text" value="6:10 am">
     <button id="submit" type="button">Got it!</button>
   </body>
 </html>

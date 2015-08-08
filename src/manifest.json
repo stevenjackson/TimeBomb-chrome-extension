@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "AllDone!",
+  "name": "TimeBomb!",
   "description": "Close all your tabs in the current window after a set time",
   "version": "1.0",
 
@@ -10,7 +10,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "activeTab",
+    "tabs",
     "alarms",
     "https://ajax.googleapis.com/"
   ]
