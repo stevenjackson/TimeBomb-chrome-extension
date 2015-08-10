@@ -18,6 +18,7 @@
     "storage",
     "tabs",
     "alarms",
+    "notifications",
     "https://ajax.googleapis.com/"
   ]
 }

@@ -22,7 +22,13 @@ TimeBomb.minutesUntil = function(time) {
 
 TimeBomb.prototype.start = function() {
   chrome.alarms.create("TimeBomb-CloseTime", { delayInMinutes: this.closeTime});
+  this.addSnoozableWarning();
   return this;
+};
+
+TimeBomb.prototype.addSnoozableWarning = function() {
+  if(this.closeTime <= 2) return;
+  chrome.alarms.create("TimeBomb-Warning", { delayInMinutes: this.closeTime - 2});
 };
 
 TimeBomb.prototype.blockTabsInLast = function(minutes) {
