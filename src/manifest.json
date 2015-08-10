@@ -4,12 +4,18 @@
   "name": "TimeBomb!",
   "description": "Close all your tabs in the current window after a set time",
   "version": "1.0",
+  "incognito": "split",
 
   "browser_action": {
     "default_icon": "boom.png",
     "default_popup": "popup.html"
   },
+  "background": {
+    "scripts": [ "timebomb-listener.js" ],
+    "persistent": false
+  },
   "permissions": [
+    "storage",
     "tabs",
     "alarms",
     "https://ajax.googleapis.com/"

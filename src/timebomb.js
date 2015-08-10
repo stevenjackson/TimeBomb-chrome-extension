@@ -4,8 +4,8 @@ function TimeBomb() {
 }
 TimeBomb.prototype.setFor = function(time) {
   chrome.windows.getCurrent(function(window) {
-    this.windowId = window.id;
-  }.bind(this));
+    chrome.storage.local.set({'timebombWindowId': window.id});
+  });
   this.closeTime = TimeBomb.minutesUntil(time);
   return this;
 };
@@ -16,27 +16,18 @@ TimeBomb.minutesUntil = function(time) {
   if(endTime.isBefore(now)) {
     endTime = endTime.add(1, 'day');
   }
-  var diff = endTime.diff(now, 'minutes');
-  //moment is very precise in its calculation
-  //if you have 119 seconds until close, that's 1 minute.
-  return diff + 1;
+  var diff = endTime.diff(now, 'seconds');
+  return diff / 60;
 }
 
 TimeBomb.prototype.start = function() {
-  console.log('setting alarm to', this.closeTime);
-  chrome.alarms.create("CloseTime", { delayInMinutes: this.closeTime});
-  chrome.alarms.onAlarm.addListener(function (alarm) {
-    console.log('alarmin', alarm);
-    chrome.windows.remove(this.windowId);
-  }.bind(this));
+  chrome.alarms.create("TimeBomb-CloseTime", { delayInMinutes: this.closeTime});
   return this;
 };
 
-TimeBomb.prototype.blockNewTabs = function() {
-  chrome.tabs.onCreated.addListener(function(tab) {
-    console.log('tab created');
-    chrome.tabs.remove(tab.id);
-  });
+TimeBomb.prototype.blockTabsInLast = function(minutes) {
+  chrome.alarms.create("TimeBomb-BlockTabs", { delayInMinutes: .1 });
+  return this;
 };
 
 module.exports = TimeBomb;
