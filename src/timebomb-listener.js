@@ -1,6 +1,11 @@
-function windowId(callback) {
+function windowId(callbackIfFound) {
   return chrome.storage.local.get('timebombWindowId', function(data) {
-    callback(data.timebombWindowId);
+    chrome.windows.get(data.timebombWindowId, function(window) {
+      errorSwallower();
+      if(window) {
+        callbackIfFound(window.id);
+      }
+    });
   });
 }
 
@@ -31,6 +36,12 @@ function errorSwallower() {
   chrome.runtime.lastError;
 }
 
+function displaySnooze() {
+  windowId(function(windowId) {
+    showSnoozeNotification();
+  });
+}
+
 function showSnoozeNotification() {
     var id = 'TimeBomb-SnoozeNotification';
     var opts = {
@@ -59,6 +70,6 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   } else if(alarm.name === 'TimeBomb-BlockTabs') {
     chrome.tabs.onCreated.addListener(blockTabListener);
   } else if(alarm.name === 'TimeBomb-Warning') {
-    showSnoozeNotification();
+    displaySnooze();
   }
 });
