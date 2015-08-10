@@ -6,17 +6,29 @@
       body {
         width: 300px;
       }
-      input {
+      div {
+        padding: 10px;
+      }
+      #timeToClose {
         width: 50px;
       }
+      #blockTime {
+        width: 15px;
+      }
+
     </style>
     <script src="popup.js"></script>
     <script src="timebomb.js"></script>
     <script src="moment.min.js"></script>
   </head>
   <body>
-    Close all windows at <input id="timeToClose" type="text" value="6:10 am">
-    <button id="submit" type="button">Got it!</button>
+    <div>
+      Close all windows at <input id="timeToClose" type="text" value="6:10 am">
+    </div>
+    <div>
+      Block new tabs in the last <input id="blockTime" type="text" value="5"> minutes
+    </div>
+    <button id="submit" type="button">Start Bomb</button>
   </body>
 </html>
 

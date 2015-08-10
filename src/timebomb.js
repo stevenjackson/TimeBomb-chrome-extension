@@ -26,7 +26,14 @@ TimeBomb.prototype.start = function() {
 };
 
 TimeBomb.prototype.blockTabsInLast = function(minutes) {
-  chrome.alarms.create("TimeBomb-BlockTabs", { delayInMinutes: .1 });
+  if(!minutes) return this;
+
+  var blockTime = this.closeTime - parseInt(minutes);
+  if(blockTime < 0) {
+    blockTime = .1;
+  }
+
+  chrome.alarms.create("TimeBomb-BlockTabs", { delayInMinutes: blockTime });
   return this;
 };
 
